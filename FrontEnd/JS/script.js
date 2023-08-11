@@ -3,6 +3,8 @@ getCategory();
 getWorks();
 
 // Récupération des catégories via l'API
+
+
 function getCategory() {
     const catUrl = 'http://localhost:5678/api/categories';
     fetch(catUrl)
@@ -44,12 +46,15 @@ function findByCategory(id) {
 }
 
 // Pour afficher tout les projets sur le filtre "Tous"
+
+
 function showAllWorks() {
     const works = JSON.parse(localStorage.getItem('worksedit'));
     createDocumentWorks(works);
 }
 
 // Récupération des projets de l'API
+
 function getWorks() {
     const worksUrl = 'http://localhost:5678/api/works';
 
@@ -123,12 +128,14 @@ function addWorkModal() {
 }
 
   // Variable à afficher pour le mode éditeur
+
 const modeEdition = document.querySelector(".mode-edition");
 const editBtn = document.querySelectorAll(".modifier");
 const logout = document.querySelector('[href="login.html"]');
 const filters = document.querySelectorAll("#category");
 
 // Si nous avons récupéré le token
+
 if (isConnected()) {
     modeEdition.style.display = "flex";
 
@@ -148,10 +155,12 @@ if (isConnected()) {
     }
 
     // Changer login en logout
+
     logout.textContent = "logout";
     logout.setAttribute("href", "#");
 
     // Lorque l'on clic sur logout cela déconnecte l'utilisateur
+
     logout.addEventListener("click", event => {
         event.preventDefault();
 
@@ -163,12 +172,14 @@ if (isConnected()) {
 
 
 // fonction pour récuperer l'id utilisateur et le token
+
 function getAuthorization() {
   const token = JSON.parse(localStorage.getItem('auth')).token;
   return 'Bearer ' + token;
 }
 
 // Fonction pour voir si l'utilisateur est connecté
+
 function isConnected() {
   const connecting = getAuthorization() ? true : false;
   return connecting;
@@ -177,17 +188,20 @@ function isConnected() {
 
 
 // Variables pour la modal suppression de projets
+
 const modalDeleteWork = document.querySelector("#modalsSuppr");
 const openGalleryModalBtn = document.querySelector("#projectEdit");
 const closeGalleryModalBtn = document.querySelector("#fermer-suppr");
 
 // Variables pour la modal ajout de projets
+
 const modalAddWork = document.querySelector("#modalsAjout");
 const openAddWork = document.querySelector("#AjoutPhoto");
 const previousBtn = document.querySelector(".precedent");
 const closeAddWorkModalBtn = document.querySelector("#fermer-ajout")
 
 // Variables pour upload une image
+
 const uploadImageInput = document.querySelector("#imageUpload");
 const projectUpload = document.querySelector("#previewImage");
 const uploadContent = document.querySelector("#previewdetails");
@@ -197,9 +211,11 @@ const backgroundPreview = document.querySelector(".AjoutPhotoContainer");
 const addProjectForm = document.querySelector("#ajout-form");
 
 // Variable pour background modal
+
 const backgroundModal = document.querySelector("#modals");
 
 // Fonction pour ouvrir modal galerie pour supprimer un projet et celle pour ajouter un projet
+
 function openGalleryModal() {
     modalDeleteWork.style.display = "flex";
     backgroundModal.style.display = "block";
@@ -212,6 +228,8 @@ function openAddWorkModal() {
 }
 
 // Fonction pour fermeture des modals
+
+
 function closeGalleryModal() {
     modalDeleteWork.style.display = "none";
     backgroundModal.style.display = "none";
@@ -223,6 +241,7 @@ function closeAddWorkModal() {
 }
 
 // Ouvrir les modals
+
 if (openGalleryModalBtn) openGalleryModalBtn.addEventListener("click", openGalleryModal);
 if (openAddWork) openAddWork.addEventListener("click", function() {
     closeGalleryModal();
@@ -230,6 +249,7 @@ if (openAddWork) openAddWork.addEventListener("click", function() {
 })
 
 // Fermer les modals et précédent
+
 closeGalleryModalBtn.addEventListener("click", closeGalleryModal);
 closeAddWorkModalBtn.addEventListener("click", closeAddWorkModal);
 
@@ -248,6 +268,7 @@ window.onclick = function (event) {
 
 
 // Supprimer des photos
+
 function deleteWork(event, id) {
     fetch('http://localhost:5678/api/works/' + id, {
         method: "DELETE",
@@ -275,6 +296,8 @@ function deleteWork(event, id) {
 }
 
 // Fonctions pour ajouter des projets
+
+
 async function sendWorkData(data) {
    const postWorkUrl = 'http://localhost:5678/api/works';
 
@@ -290,27 +313,32 @@ async function sendWorkData(data) {
 }
 
 // Fonction pour gérer l'envoi du formulaire
+
 async function handleFormSubmit(event) {
     event.preventDefault();
 
     // Vérifier que tous les champs obligatoires sont remplis
+
     if (!addProjectForm.checkValidity()) {
         alert("Veuillez remplir tous les champs obligatoires.");
         return;
     }
 
     // Récupérer les valeurs du formulaire
+
     const title = addProjectForm.querySelector("#titreAjout").value;
     const category = addProjectForm.querySelector("#selectCategorie").value;
     const file = uploadImageInput.files[0];
 
     // Créer un objet FormData pour envoyer les données
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
     formData.append("image", file);
 
     // Envoyer les données et afficher la réponse
+
     try {
         const response = await sendWorkData(formData);
         console.log(response);
@@ -326,6 +354,7 @@ async function handleFormSubmit(event) {
 }
 
 // Ajout des événements pour gérer l'upload de photos
+
 uploadImageInput.addEventListener("change", function () {
     uploadImage();
 });
@@ -333,6 +362,7 @@ uploadImageInput.addEventListener("change", function () {
 addProjectForm.addEventListener("submit", handleFormSubmit);
 
 // Fonction pour afficher l'aperçu de l'image
+
 function uploadImage() {
     if (uploadImageInput.files && uploadImageInput.files[0]) {
         const reader = new FileReader();

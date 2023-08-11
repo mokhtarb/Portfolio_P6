@@ -307,24 +307,18 @@ footer nav ul {
 }
 
 .subcat {
-  width: 100%;
-  height: 37px;
-  text-decoration: none;
-  background: white;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 16px;
+  color: #1d6154;
+  background-color: white;
   border: 1px solid #1d6154;
   border-radius: 60px;
   text-align: center;
-  display: block;
-  justify-content: space-between;
-  margin-left: 20px;
-  font-family: "Syne";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 34px;
-  text-align: center;
-  color: #1d6154;
-  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 .subcat:hover {
   background-color: #1d6154;
